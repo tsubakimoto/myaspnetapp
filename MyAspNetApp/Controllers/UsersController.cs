@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyAspNetApp.Models;
+using System.IO;
 
 namespace MyAspNetApp.Controllers
 {
@@ -19,6 +20,14 @@ namespace MyAspNetApp.Controllers
         public async Task<ActionResult> Index()
         {
             ViewBag.Now = DateTime.UtcNow.ToString("yyyy-MM-dd");
+
+            var dir = new DirectoryInfo(".");
+            var files = dir.GetFiles("*.txt");
+            foreach (var file in files)
+            {
+                var f = new FileInfo(file.FullName);
+            }            
+
             return View(await db.Users.ToListAsync());
         }
 

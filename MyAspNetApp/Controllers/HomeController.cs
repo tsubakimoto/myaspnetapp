@@ -10,7 +10,7 @@ namespace MyAspNetApp.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Users");
         }
 
         public ActionResult About()
