@@ -18,6 +18,7 @@ namespace MyAspNetApp.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
+            ViewBag.Now = DateTime.UtcNow.ToString("yyyy-MM-dd");
             return View(await db.Users.ToListAsync());
         }
 
