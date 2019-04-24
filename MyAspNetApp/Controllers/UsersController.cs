@@ -25,7 +25,7 @@ namespace MyAspNetApp.Controllers
             var files = dir.GetFiles("*.txt");
             foreach (var file in files)
             {
-                var f = new FileInfo(file.FullName);
+                var f = System.IO.File.ReadAllText(file.FullName);
             }            
 
             return View(await db.Users.ToListAsync());
