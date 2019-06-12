@@ -31,6 +31,17 @@ namespace MyAspNetApp.Controllers
         public ActionResult SendMail()
         {
             var smtp = new SmtpClient("127.0.0.1", 80);
+
+            // var smtp = new SmtpClient();
+            // smtp.Host = "127.0.0.1";
+            // smtp.Port = 80;
+
+            // var smtp = new SmtpClient
+            // {
+            //     Host = "127.0.0.1",
+            //     Port = 80
+            // };
+
             smtp.Send("from@example.com", "to@example.com", "subj", "body");
             return Content(nameof(SendMail));
         }
