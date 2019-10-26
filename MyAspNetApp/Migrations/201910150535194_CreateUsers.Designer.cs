@@ -13,7 +13,7 @@ namespace MyAspNetApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904240512484_CreateUsers"; }
+            get { return "201910150535194_CreateUsers"; }
         }
         
         string IMigrationMetadata.Source

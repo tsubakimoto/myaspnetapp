@@ -131,12 +131,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904240512484_CreateUsers.cs" />
-    <Compile Include="Migrations\201904240512484_CreateUsers.Designer.cs">
-      <DependentUpon>201904240512484_CreateUsers.cs</DependentUpon>
+    <Compile Include="Migrations\201910150535194_CreateUsers.cs" />
+    <Compile Include="Migrations\201910150535194_CreateUsers.Designer.cs">
+      <DependentUpon>201910150535194_CreateUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyAspNetAppContext.cs" />
+    <Compile Include="Models\MyInitializer.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -199,8 +200,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904240512484_CreateUsers.resx">
-      <DependentUpon>201904240512484_CreateUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910150535194_CreateUsers.resx">
+      <DependentUpon>201910150535194_CreateUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
