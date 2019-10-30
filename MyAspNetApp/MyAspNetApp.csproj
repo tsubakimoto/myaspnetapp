@@ -139,6 +139,7 @@
     <Compile Include="Models\MyAspNetAppContext.cs" />
     <Compile Include="Models\MyInitializer.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
