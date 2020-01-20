@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
@@ -55,6 +56,18 @@ namespace MyAspNetApp.Controllers
                 HttpContext.Session["now"] = nowString;
             }
             return Content(nowString);
+        }
+
+        public ActionResult Conn()
+        {
+            var builder = new SqlConnectionStringBuilder
+            {
+                DataSource = "127.0.0.1",
+                IntegratedSecurity = false,
+                UserID = "SA",
+                Password = "P@ssw0rd!P@ssw0rd!"
+            };
+            return Content(builder.ToString());
         }
     }
 }
