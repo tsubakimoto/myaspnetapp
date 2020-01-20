@@ -45,5 +45,16 @@ namespace MyAspNetApp.Controllers
             smtp.Send("from@example.com", "to@example.com", "subj", "body");
             return Content(nameof(SendMail));
         }
+
+        public ActionResult Now()
+        {
+            var nowString = HttpContext.Session["now"]?.ToString();
+            if (string.IsNullOrWhiteSpace(nowString))
+            {
+                nowString = DateTime.Now.ToString();
+                HttpContext.Session["now"] = nowString;
+            }
+            return Content(nowString);
+        }
     }
 }
