@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Configuration;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 
@@ -16,11 +15,14 @@ namespace MyAspNetApp.Controllers
     public class HomeController : Controller
     {
         private static readonly MailSettingsSectionGroup mailSettings;
+        private static readonly HttpClient httpClient;
 
         static HomeController()
         {
             var config = WebConfigurationManager.OpenWebConfiguration("~/web.config");
             mailSettings = config.GetSectionGroup("system.net/mailSettings") as MailSettingsSectionGroup;
+
+            httpClient = new HttpClient();
         }
 
         public ActionResult Index()
@@ -101,6 +103,13 @@ namespace MyAspNetApp.Controllers
         {
             var dir = Directory.CreateDirectory("~/hoge");
             return Content(dir.FullName);
+        }
+
+        public async Task<ActionResult> WebApi()
+        {
+            var response = await httpClient.GetAsync("http://dummy.restapiexample.com/api/v1/employees");
+            var body = await response.Content.ReadAsStringAsync();
+            return Content(body, "application/json");
         }
     }
 }
