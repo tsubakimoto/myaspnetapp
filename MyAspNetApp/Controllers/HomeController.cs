@@ -99,7 +99,8 @@ namespace MyAspNetApp.Controllers
 
         public ActionResult Dir()
         {
-            return Content(Directory.GetCurrentDirectory());
+            var dir = Directory.CreateDirectory("~/hoge");
+            return Content(dir.FullName);
         }
     }
 }
