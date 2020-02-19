@@ -19,8 +19,6 @@ namespace MyAspNetApp.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
-            ViewBag.Now = DateTime.UtcNow.ToString("yyyy-MM-dd");
-
             var dir = new DirectoryInfo(".");
             var files = dir.GetFiles("*.txt");
             foreach (var file in files)
