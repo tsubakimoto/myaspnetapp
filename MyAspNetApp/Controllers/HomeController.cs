@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Configuration;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace MyAspNetApp.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly MailSettingsSectionGroup mailSettings;
+
+        static HomeController()
+        {
+            var config = WebConfigurationManager.OpenWebConfiguration("~/web.config");
+            mailSettings = config.GetSectionGroup("system.net/mailSettings") as MailSettingsSectionGroup;
+        }
+
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Users");
@@ -30,22 +42,36 @@ namespace MyAspNetApp.Controllers
             return View();
         }
 
-        public ActionResult SendMail()
+        public ActionResult Mail()
         {
-            // var smtp = new SmtpClient("127.0.0.1", 80);
+            try
+            {
+                var mailMsg = new MailMessage();
 
-            var smtp = new SmtpClient();
-            smtp.Host = "127.0.0.1";
-            smtp.Port = 80;
+                // To
+                mailMsg.To.Add(new MailAddress("y-matsumura@alterbooth.net", "yuta matsumura"));
 
-            // var smtp = new SmtpClient
-            // {
-            //     Host = "127.0.0.1",
-            //     Port = 80
-            // };
+                // From
+                mailMsg.From = new MailAddress("from@example.com", "From Name");
 
-            smtp.Send("from@example.com", "to@example.com", "subj", "body");
-            return Content(nameof(SendMail));
+                // Subject and multipart/alternative Body
+                mailMsg.Subject = "subject";
+                var text = "text body";
+                var html = @"<p>html body</p>";
+                mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
+                mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+
+                // Init SmtpClient and send
+                var smtpClient = new SmtpClient(mailSettings.Smtp.Network.Host, mailSettings.Smtp.Network.Port);
+                smtpClient.Credentials = new NetworkCredential(mailSettings.Smtp.Network.UserName, mailSettings.Smtp.Network.Password);
+
+                smtpClient.Send(mailMsg);
+                return Content("メールを送信しました");
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
         public ActionResult Now()
