@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
@@ -68,6 +69,11 @@ namespace MyAspNetApp.Controllers
                 Password = "P@ssw0rd!P@ssw0rd!"
             };
             return Content(builder.ToString());
+        }
+
+        public ActionResult Dir()
+        {
+            return Content(Directory.GetCurrentDirectory());
         }
     }
 }
