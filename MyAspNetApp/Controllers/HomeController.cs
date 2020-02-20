@@ -111,5 +111,15 @@ namespace MyAspNetApp.Controllers
             var body = await response.Content.ReadAsStringAsync();
             return Content(body, "application/json");
         }
+
+        public async Task<ActionResult> WebApi2()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync("http://dummy.restapiexample.com/api/v1/employees");
+                var body = await response.Content.ReadAsStringAsync();
+                return Content(body, "application/json");
+            }
+        }
     }
 }
